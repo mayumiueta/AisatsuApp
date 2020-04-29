@@ -14,26 +14,34 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button1.setOnClickListener(this)
-        {
-            override fun onClick(v: View) {
-                if (v.id == R.id.button1) {
-                    showTimePickerDialog()
-                }
-            }
-        }
+        button1.setOnClickListener (this)
+    }
 
-        private fun showTimePickerDailog() {
+    override fun onClick(v: View) {
+        if (v.id == R.id.button1) {
+       showTimePickerDialog()
+    }
+    }
+
+    private fun showTimePickerDialog(){
             val timePickerDialog = TimePickerDialog(
                 this,
-            TimePickerDialog.OnTimeSetListener{ view, hour, minute ->
-                Log.d("UI_PARTS", "$hour:$minute")
-
-            },
-       13, 0, true)
+                TimePickerDialog.OnTimeSetListener{ view, hour, minute ->
+                    Log.d("UI_PARTS", "$hour:$minute")
+                    when (hour){
+                    (in 2..9) -> {TextView.text = "おはよう" }
+                    (in 10..17) -> {TextView.text = "こんにちは" }
+                    (in 18..1) -> {TextView.text = "こんばんは" }
+                }
+                },
+                13, 0, true)
             timePickerDialog.show()
-            }
+
     }
 }
 
-}
+
+
+//ボタンが押されたら、TimePickerDialogを表示する。
+//TimePickerDialogでOK押されたタイミングでwhen式をしようして表示内容を判定する。
+//判定内容をTextView.textで設定し画面に表示する。
